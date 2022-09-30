@@ -24,7 +24,7 @@ def exams_with_median_gt_K(x, k):
         raise TypeError
     if k > 100 or k < 0:
         raise ValueError
-    if np.any(x < 0):
+    if np.any(x < 0) or np.any(x > 100):
         raise ValueError
     
     replaceMissingValues(x)
