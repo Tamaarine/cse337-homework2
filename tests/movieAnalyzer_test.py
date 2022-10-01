@@ -116,3 +116,20 @@ class TestMovieAnalyzer:
     def test_get_actor_movies5(self):
         with pytest.raises(ValueError):
             ret = get_actor_movies_release_year_range("Tom Hanks", 2011, 2022)
+            
+    def test_get_actor_median_rating1(self):
+        assert get_actor_median_rating("Dean-Charles Chapman") == 8.2
+    
+    def test_get_actor_median_rating2(self):
+        assert get_actor_median_rating("Lin-Manuel Miranda") == 8.3
+    
+    def test_get_actor_median_rating3(self):
+        with pytest.raises(ValueError):
+            get_actor_median_rating("")
+    
+    def test_get_actor_median_rating4(self):
+        with pytest.raises(TypeError):
+            get_actor_median_rating(1)
+    
+    def test_get_actor_median_rating5(self):
+        assert get_actor_median_rating("Ricky Lu") == None
