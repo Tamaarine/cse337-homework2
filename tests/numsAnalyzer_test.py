@@ -1,3 +1,4 @@
+from numpy import array_equal
 import pytest
 import sys, os
 sys.path.insert(1, os.getcwd())
@@ -363,3 +364,88 @@ class TestNumsAnalyzer:
             x[0][0] = 102
             
             exams_with_median_gt_K(x, 30)
+            
+    def test_curve_low_scoring_exams1(self):
+        size = (4, 4)
+        np.random.seed(7878)
+        
+        x = np.random.uniform(0, 100, size=(np.prod(size)))
+        np.random.shuffle(x)
+        x = x.reshape(size)
+        
+        y = curve_low_scoring_exams(x, 60)
+        
+        exp = np.array([[4.9, 100, 19, 87.3], [45.6, 94.3, 17.8, 98.3], [60.4, 80, 52.8, 98.8], [100, 89.4, 90.4, 90.1]])
+
+        assert np.array_equal(y, exp)
+    
+    def test_curve_low_scoring_exams2(self):
+        size = (5, 4)
+        np.random.seed(676)
+        
+        x = np.random.uniform(0, 100, size=(np.prod(size)))
+        np.random.shuffle(x)
+        x = x.reshape(size)
+        
+        y = curve_low_scoring_exams(x, 60)
+        
+        exp = np.array([[61.7, 50.9, 41.6, 93.1], [100, 56,60.7, 48.2], [ 99.7, 90.3, 14.9, 64.7], [84.5, 73.5, 60.4, 60], [36.2, 99.3, 92.9, 56.2]])
+
+        assert np.array_equal(y, exp)
+    
+    def test_curve_low_scoring_exams3(self):
+        with pytest.raises(TypeError):
+            size = (5, 4)
+            np.random.seed(676)
+            
+            x = np.random.uniform(0, 100, size=(np.prod(size)))
+            np.random.shuffle(x)
+            x = x.reshape(size)
+            
+            y = curve_low_scoring_exams(x, "hehe xd")
+    
+    def test_curve_low_scoring_exams4(self):
+        with pytest.raises(ValueError):
+            size = (5, 4)
+            np.random.seed(676)
+            
+            x = np.random.uniform(0, 100, size=(np.prod(size)))
+            np.random.shuffle(x)
+            x = x.reshape(size)
+            
+            y = curve_low_scoring_exams(x, 104)
+    
+    def test_curve_low_scoring_exams5(self):
+        with pytest.raises(ValueError):
+            size = (5, 4)
+            np.random.seed(676)
+            
+            x = np.random.uniform(0, 100, size=(np.prod(size)))
+            np.random.shuffle(x)
+            x = x.reshape(size)
+            
+            y = curve_low_scoring_exams(x, -39)
+    
+    def test_curve_low_scoring_exams6(self):
+        with pytest.raises(ValueError):
+            size = (5, 4)
+            np.random.seed(676)
+            
+            x = np.random.uniform(0, 100, size=(np.prod(size)))
+            np.random.shuffle(x)
+            x = x.reshape(size)
+            x[0][0] = -3
+            
+            y = curve_low_scoring_exams(x, 50)
+    
+    def test_curve_low_scoring_exams7(self):
+        with pytest.raises(ValueError):
+            size = (5, 4)
+            np.random.seed(676)
+            
+            x = np.random.uniform(0, 100, size=(np.prod(size)))
+            np.random.shuffle(x)
+            x = x.reshape(size)
+            x[0][0] = 104
+            
+            y = curve_low_scoring_exams(x, 50)
