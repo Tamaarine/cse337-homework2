@@ -8,7 +8,14 @@ def get_movies_data():
     return pd.read_csv(top200_movies_file)
 
 def get_movies_interval(y1, y2):
-    pass
+    if y1 > y2:
+        raise ValueError
+    
+    df = get_movies_data()
+    
+    required_df = df[(df['Year of Release'] >= y1) & (df['Year of Release'] <= y2)]
+    
+    return required_df['Title']
 
 def get_rating_popularity_stats(index, type):
     pass
