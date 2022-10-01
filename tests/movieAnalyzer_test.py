@@ -84,3 +84,35 @@ class TestMovieAnalyzer:
     
     def test_get_stat13(self):
         assert get_rating_popularity_stats("Ratingx", "hehe") == "Invalid index or type"
+    
+    def test_get_actor_movies1(self):
+        ret = get_actor_movies_release_year_range("Tom Hanks", 2010, 2010)
+        
+        exp = pd.Series([2010], index=["Toy Story 3"])
+        
+        assert ret.equals(exp)
+        
+    def test_get_actor_movies2(self):
+        ret = get_actor_movies_release_year_range("Tom Hanks", 2010)
+        
+        exp = pd.Series([1994, 1998, 1999, 1995, 2010, 2002], index=["Forrest Gump", "Saving Private Ryan", "The Green Mile", "Toy Story", "Toy Story 3", "Catch Me If You Can"])
+
+        assert ret.equals(exp)
+    
+    def test_get_actor_movies3(self):
+        ret = get_actor_movies_release_year_range("Tom Hanks", 2022, 2011)
+        
+        exp = pd.Series([], dtype="int64")
+        
+        assert ret.equals(exp)
+    
+    def test_get_actor_movies4(self):
+        ret = get_actor_movies_release_year_range("Jürgen Prochnow", 1999)
+        
+        exp = pd.Series([1981], index=["The Boat"])
+
+        assert ret.equals(exp)
+    
+    def test_get_actor_movies5(self):
+        with pytest.raises(ValueError):
+            ret = get_actor_movies_release_year_range("Tom Hanks", 2011, 2022)
