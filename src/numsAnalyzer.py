@@ -38,4 +38,36 @@ def exams_with_median_gt_K(x, k):
         
 
 def curve_low_scoring_exams(x, k):
-    pass
+    if type(k) != int:
+        raise TypeError
+    if k > 100 or k < 0:
+        raise ValueError
+    if np.any(x < 0) or np.any(x > 100):
+        raise ValueError
+    
+    replaceMissingValues(x)
+    
+    avg = np.mean(x, axis=1) # Find the average across the semester
+    
+    avg_mask = avg < k # Tells which semester requires a curve
+    avg_mask = avg_mask.reshape(avg_mask.shape[0], 1) # Need to be also reshaped to be column vector
+    
+    # Calculate how much point need to be added
+    # Need to be reshaped to column in order to be broadcasted
+    curve = 100 - np.max(x, axis=1)
+    curve = curve.reshape(curve.shape[0], 1)
+    
+    # The new matrix with curved score added to it
+    x_curved = np.where(avg_mask, x + curve, x)
+    
+    # Get the mean of the curved grades
+    x_curved_mean = np.mean(x_curved, axis=1)
+    
+    # Sort by the curved mean
+    sorted_x = np.argsort(x_curved_mean) 
+    
+    # Update x_curved to the sorted one
+    x_curved = x_curved[sorted_x]
+    
+    # Round to the tenth place
+    return np.round(x_curved, 1)
