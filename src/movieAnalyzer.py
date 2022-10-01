@@ -18,7 +18,48 @@ def get_movies_interval(y1, y2):
     return required_df['Title']
 
 def get_rating_popularity_stats(index, type):
-    pass
+    if index != "Rating" and index != "Popularity Index":
+        return "Invalid index or type"
+    
+    type_list = ["count", "mean", "median", "min", "max"]
+    
+    if type not in type_list:
+        return "Invalid index or type"
+        
+    def transform(x):
+        '''
+        Turn a string separated by , into its numerical value
+        '''
+        parsed = ""
+        while x.find(",") != -1:
+            parsed += x[: x.find(",")]
+            x = x[x.find(",") + 1:]
+        parsed += x
+        return int(parsed)
+    
+    df = get_movies_data()
+    
+    if index == "Popularity Index":
+        # Need to perform a transformation on Popularity index
+        # because it is not a numerical value 
+        df['Popularity Index n'] = df[index].apply(transform)
+    
+        index = "Popularity Index n"
+        
+    output = 0
+    
+    if type == "count":
+        output = df[index].count()
+    elif type == "mean":
+        output = df[index].mean()
+    elif type == "median":
+        output = df[index].median()
+    elif type == "min":
+        output = df[index].min()
+    else:
+        output = df[index].max()
+    
+    return round(output, 2)
 
 def get_actor_movies_release_year_range(actor, upper, lower=0):
     pass
