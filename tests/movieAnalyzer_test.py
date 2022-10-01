@@ -27,7 +27,7 @@ class TestMovieAnalyzer:
     
     def test_get_movie_interval3(self):
         ret = get_movies_interval(2020, 2020)
-        print(ret)
+        
         exp = pd.Series(['Hamilton', 'The Father'],
                         index=[115, 126], name="Title")
         
