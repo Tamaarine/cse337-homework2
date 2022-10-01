@@ -133,3 +133,37 @@ class TestMovieAnalyzer:
     
     def test_get_actor_median_rating5(self):
         assert get_actor_median_rating("Ricky Lu") == None
+    
+    def test_get_directors_median_reviews(self):
+        exp = pd.Series([0.19, 0.124, 0.397, 1.05, 1.05, 0.243, 0.179, 0.502, 0.4675, 0.714, 0.819, 1.1, 0.17, 0.239, \
+        1.7, 0.679, 0.575, 0.822, 0.195, 0.149, 0.678, 0.827, 1.6, 0.2545, 0.238, 0.855, 0.726, 0.4315, 0.076, 0.154, \
+        0.95, 0.746, 0.385, 0.14, 1.2, 0.448, 1.9500000000000002, 0.16399999999999998, 0.466, 1.3, 0.978, 0.259, 0.257, \
+        0.66, 0.946, 0.708, 0.62, 0.385, 0.183, 1.3, 0.27, 0.849, 0.5569999999999999, 1.1, 0.747, 0.173, 0.732, 0.414, \
+        0.565, 0.124, 0.973, 0.863, 0.242, 0.679, 1.4, 0.233, 0.13, 0.208, 1.9, 0.6535, 0.413, 1.1, 0.976, 0.256, 0.495, \
+        1.1, 0.055, 0.7545, 0.336, 0.563, 0.64, 0.988, 0.6930000000000001, 0.086, 0.185, 0.352, 0.409, 0.839, 0.437, \
+        0.567, 0.575, 0.891, 0.471, 1.8, 0.739, 1.4, 0.39, 0.281, 1.0, 0.861, 0.397, 0.313, 1.6, 0.682, 1.0, 0.5670000000000001,\
+        0.6950000000000001, 0.8305, 0.616, 0.3355, 0.144, 0.4645, 0.239, 0.077, 0.657, 0.691, 0.951, 0.353, 0.535, \
+        0.09, 0.323, 1.2, 0.463, 1.1, 0.353, 0.79, 0.237, 0.248], index = ['Aamir Khan', 'Akira Kurosawa', 'Alfred Hitchcock', \
+        'Andrew Stanton', 'Anthony Russo', 'Asghar Farhadi', 'Billy Wilder', 'Bob Persichetti', \
+        'Bong Joon Ho', 'Brad Bird', 'Brian De Palma', 'Bryan Singer', 'Carol Reed', 'Charles Chaplin', 'Christopher Nolan', \
+        'Clint Eastwood', 'Curtis Hanson', 'Damien Chazelle', 'Damián Szifron', 'Dan Kwan', 'Danny Boyle', 'Darren Aronofsky',\
+        'David Fincher', 'David Lean', 'David Lynch', 'David Yates', 'Dean DeBlois', 'Denis Villeneuve', 'Elem Klimov' \
+        , 'Elia Kazan', 'Ethan Coen', 'Fernando Meirelles', 'Florian Henckel von Donnersmarck', 'Florian Zeller', \
+        'Francis Ford Coppola', 'Frank Capra', 'Frank Darabont', 'Fritz Lang', "Gavin O'Connor", 'George Lucas', \
+        'George Miller', 'George Roy Hill', 'Giuseppe Tornatore', 'Guillermo del Toro', 'Gus Van Sant', 'Guy Ritchie', \
+        'Harold Ramis', 'Hayao Miyazaki', 'Ingmar Bergman', 'Irvin Kershner', 'Isao Takahata', 'James Cameron', \
+        'James Mangold', 'James McTeigue', 'Jean-Pierre Jeunet', 'Jim Sheridan', 'Joel Coen', 'John Carpenter', \
+        'John G. Avildsen', 'John Huston', 'John Lasseter', 'John McTiernan', 'John Sturges', 'Jon Watts', \
+        'Jonathan Demme', 'Joseph Kosinski', 'Joseph L. Mankiewicz', 'Juan José Campanella', 'Lana Wachowski', \
+        'Lee Unkrich', 'Lenny Abrahamson', 'Luc Besson', 'M. Night Shyamalan', 'Makoto Shinkai', 'Martin McDonagh', \
+        'Martin Scorsese', 'Masaki Kobayashi', 'Mel Gibson', 'Michael Cimino', 'Michael Curtiz', 'Michael Mann', \
+        'Michel Gondry', 'Milos Forman', 'Nadine Labaki', 'Nitesh Tiwari', 'Oliver Hirschbiegel', 'Oliver Stone', \
+        'Olivier Nakache', 'Orson Welles', 'Park Chan-wook', 'Paul Thomas Anderson', 'Pete Docter', 'Peter Farrelly', \
+        'Peter Jackson', 'Peter Weir', 'Quentin Tarantino', 'Rajkumar Hirani', 'Richard Linklater', 'Richard Marquand', \
+        'Ridley Scott', 'Rob Reiner', 'Robert Mulligan', 'Robert Zemeckis', 'Roberto Benigni', 'Roger Allers', \
+        'Roman Polanski', 'Ron Howard', 'Sam Mendes', 'Sean Penn', 'Sergio Leone', 'Sergio Pablos', 'Sidney Lumet',\
+        'Stanley Donen', 'Stanley Kramer', 'Stanley Kubrick', 'Steve McQueen', 'Steven Spielberg', 'Terry George', \
+        'Terry Gilliam', 'Thomas Kail', 'Thomas Vinterberg', 'Todd Phillips', 'Tom McCarthy', 'Tony Kaye', \
+        'Victor Fleming', 'Wes Anderson', 'William Wyler', 'Wolfgang Petersen'])
+        
+        assert get_directors_median_reviews().equals(exp)
