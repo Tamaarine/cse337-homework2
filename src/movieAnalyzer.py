@@ -79,7 +79,20 @@ def get_actor_movies_release_year_range(actor, upper, lower=0):
     return ret    
 
 def get_actor_median_rating(actor):
-    pass
+    if actor == "":
+        raise ValueError
+    elif type(actor) != str:
+        raise TypeError
+    
+    df = get_movies_data()
+    
+    played_in = df['Movie Cast'].str.contains(actor)
+    
+    played_in_df = df[played_in]
+    
+    if played_in_df.empty:
+        return None
+    return played_in_df['Rating'].median()
 
 def get_directors_median_reviews():
     pass
