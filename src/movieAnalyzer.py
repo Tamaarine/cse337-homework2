@@ -62,7 +62,21 @@ def get_rating_popularity_stats(index, type):
     return round(output, 2)
 
 def get_actor_movies_release_year_range(actor, upper, lower=0):
-    pass
+    if lower > upper:
+        raise ValueError
+    
+    df = get_movies_data()
+    
+    played_in = df['Movie Cast'].str.contains(actor)
+    
+    played_in_df = df[played_in]
+    
+    played_in_df = played_in_df[(played_in_df['Year of Release'] >= lower) & (played_in_df['Year of Release'] <= upper)]
+
+    # Need to return a Series object with title as indices, and year as the value
+    ret = pd.Series(played_in_df['Year of Release'].values, index=played_in_df['Title'])
+    
+    return ret    
 
 def get_actor_median_rating(actor):
     pass
