@@ -95,4 +95,21 @@ def get_actor_median_rating(actor):
     return played_in_df['Rating'].median()
 
 def get_directors_median_reviews():
-    pass
+    # Need to transform the Number of Reviews column into float
+    # and it needs to be out of millions
+    def transform(x):
+        if x[-1] == 'K':
+            return float(x[:-1]) / 1000
+        elif x[-1] == 'M':
+            return float(x[:-1])
+        else:
+            # No units return 0
+            return float(0)
+    
+    df = get_movies_data()
+    
+    df['Reviews'] = df['Number of Reviews'].apply(transform)
+    
+    ret = df.groupby('Director')['Reviews'].median()
+    
+    return ret
