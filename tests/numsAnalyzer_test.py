@@ -246,6 +246,14 @@ class TestNumsAnalyzer:
         
         assert np.array_equal(countMissingValues(x, -3), exp)
     
+    def test_missing_count16(self):
+        with pytest.raises(ValueError):
+            size = (1, 20, 5)
+            
+            x = np.random.uniform(0, 100, size=size)
+            
+            countMissingValues(x, "hello world")
+    
     def test_replace_missing1(self):
         size = (5, 3)
         np.random.seed(6969)
