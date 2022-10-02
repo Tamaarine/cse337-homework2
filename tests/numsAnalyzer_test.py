@@ -1,4 +1,3 @@
-from numpy import array_equal
 import pytest
 import sys, os
 sys.path.insert(1, os.getcwd())
