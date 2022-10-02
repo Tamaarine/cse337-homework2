@@ -8,7 +8,7 @@ def replaceMissingValues(x):
     np.nan_to_num(x, copy=False, nan=0)
 
 def countMissingValues(x, k=0):
-    if k >= x.ndim or k < -x.ndim:
+    if type(k) != int or k >= x.ndim or k < -x.ndim:
         raise ValueError
     
     A = np.isnan(x) # boolean mask on nan values. True if it is nan, False if it isn't
