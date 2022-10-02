@@ -67,7 +67,17 @@ def get_actor_movies_release_year_range(actor, upper, lower=0):
     
     df = get_movies_data()
     
-    played_in = df['Movie Cast'].str.contains(actor)
+    def transform(x, actor):
+        x = x.strip("[],")
+        splitted = x.split(",")
+        
+        for split in splitted:
+            stripped = split.strip("' ") # Strip away the hypo and space
+            if stripped == actor:
+                return True
+        return False
+    
+    played_in = df['Movie Cast'].apply(transform, actor=actor)
     
     played_in_df = df[played_in]
     
