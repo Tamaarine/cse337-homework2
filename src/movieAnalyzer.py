@@ -132,4 +132,4 @@ def get_directors_median_reviews():
     
     ret = df.groupby('Director')['Reviews'].median()
     
-    return ret
+    return ret.round(3)
