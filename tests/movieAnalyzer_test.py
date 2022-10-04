@@ -116,7 +116,14 @@ class TestMovieAnalyzer:
     def test_get_actor_movies5(self):
         with pytest.raises(ValueError):
             ret = get_actor_movies_release_year_range("Tom Hanks", 2011, 2022)
-            
+    
+    def test_get_actor_movies6(self):
+        ret = get_actor_movies_release_year_range("a", 1999)
+        
+        exp = pd.Series([], dtype="int64")
+
+        assert ret.equals(exp)
+      
     def test_get_actor_median_rating1(self):
         assert get_actor_median_rating("Dean-Charles Chapman") == 8.2
     
@@ -133,6 +140,9 @@ class TestMovieAnalyzer:
     
     def test_get_actor_median_rating5(self):
         assert get_actor_median_rating("Ricky Lu") == None
+    
+    def test_get_actor_median_rating6(self):
+        assert get_actor_median_rating("a") == None
     
     def test_get_directors_median_reviews(self):
         exp = pd.Series([0.19, 0.124, 0.397, 1.05, 1.05, 0.243, 0.179, 0.502, 0.468, 0.714, 0.819, 1.1, 0.17, 0.239, 1.7, 0.679, 0.575, \
