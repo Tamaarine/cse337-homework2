@@ -401,17 +401,6 @@ class TestNumsAnalyzer:
         assert np.array_equal(y, exp)
     
     def test_curve_low_scoring_exams3(self):
-        with pytest.raises(TypeError):
-            size = (5, 4)
-            np.random.seed(676)
-            
-            x = np.random.uniform(0, 100, size=(np.prod(size)))
-            np.random.shuffle(x)
-            x = x.reshape(size)
-            
-            y = curve_low_scoring_exams(x, "hehe xd")
-    
-    def test_curve_low_scoring_exams4(self):
         with pytest.raises(ValueError):
             size = (5, 4)
             np.random.seed(676)
@@ -422,7 +411,7 @@ class TestNumsAnalyzer:
             
             y = curve_low_scoring_exams(x, 104)
     
-    def test_curve_low_scoring_exams5(self):
+    def test_curve_low_scoring_exams4(self):
         with pytest.raises(ValueError):
             size = (5, 4)
             np.random.seed(676)
@@ -433,7 +422,7 @@ class TestNumsAnalyzer:
             
             y = curve_low_scoring_exams(x, -39)
     
-    def test_curve_low_scoring_exams6(self):
+    def test_curve_low_scoring_exams5(self):
         with pytest.raises(ValueError):
             size = (5, 4)
             np.random.seed(676)
@@ -445,7 +434,7 @@ class TestNumsAnalyzer:
             
             y = curve_low_scoring_exams(x, 50)
     
-    def test_curve_low_scoring_exams7(self):
+    def test_curve_low_scoring_exams6(self):
         with pytest.raises(ValueError):
             size = (5, 4)
             np.random.seed(676)

@@ -35,11 +35,8 @@ def exams_with_median_gt_K(x, k):
     
     # Return the number of rows that passed the filter
     return filtered.shape[0]
-        
 
 def curve_low_scoring_exams(x, k):
-    if type(k) != int:
-        raise TypeError
     if k > 100 or k < 0:
         raise ValueError
     if np.any(x < 0) or np.any(x > 100):
