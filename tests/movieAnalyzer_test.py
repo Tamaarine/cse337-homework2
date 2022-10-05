@@ -175,4 +175,4 @@ class TestMovieAnalyzer:
         'Terry Gilliam', 'Thomas Kail', 'Thomas Vinterberg', 'Todd Phillips', 'Tom McCarthy', 'Tony Kaye', \
         'Victor Fleming', 'Wes Anderson', 'William Wyler', 'Wolfgang Petersen'])
         
-        assert get_directors_median_reviews().equals(exp)
+        assert get_directors_median_reviews().round(3).equals(exp)
