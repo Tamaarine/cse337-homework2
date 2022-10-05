@@ -47,34 +47,34 @@ class TestMovieAnalyzer:
             ret = get_movies_interval(2025, 2020)
         
     def test_get_stat1(self):
-        assert get_rating_popularity_stats("Popularity Index", "count") == 207
+        assert get_rating_popularity_stats("Popularity Index", "count") == "207.00"
     
     def test_get_stat2(self):
-        assert get_rating_popularity_stats("Popularity Index", "min") == 3
+        assert get_rating_popularity_stats("Popularity Index", "min") == "3.00"
     
     def test_get_stat3(self):
-        assert get_rating_popularity_stats("Popularity Index", "max") == 4940
+        assert get_rating_popularity_stats("Popularity Index", "max") == "4940.00"
     
     def test_get_stat4(self):
-        assert get_rating_popularity_stats("Popularity Index", "mean") == 1091.92
+        assert get_rating_popularity_stats("Popularity Index", "mean") == "1091.92"
     
     def test_get_stat5(self):
-        assert get_rating_popularity_stats("Popularity Index", "median") == 673.0
+        assert get_rating_popularity_stats("Popularity Index", "median") == "673.00"
     
     def test_get_stat6(self):
-        assert get_rating_popularity_stats("Rating", "count") == 207
+        assert get_rating_popularity_stats("Rating", "count") == "207.00"
     
     def test_get_stat7(self):
-        assert get_rating_popularity_stats("Rating", "min") == 8.1
+        assert get_rating_popularity_stats("Rating", "min") == "8.10"
     
     def test_get_stat8(self):
-        assert get_rating_popularity_stats("Rating", "max") == 9.3
+        assert get_rating_popularity_stats("Rating", "max") == "9.30"
     
     def test_get_stat9(self):
-        assert get_rating_popularity_stats("Rating", "mean") == 8.34
+        assert get_rating_popularity_stats("Rating", "mean") == "8.34"
     
     def test_get_stat10(self):
-        assert get_rating_popularity_stats("Rating", "median") == 8.3
+        assert get_rating_popularity_stats("Rating", "median") == "8.30"
     
     def test_get_stat11(self):
         assert get_rating_popularity_stats("Ratingx", "median") == "Invalid index or type"

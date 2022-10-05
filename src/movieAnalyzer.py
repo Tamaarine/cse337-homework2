@@ -59,7 +59,7 @@ def get_rating_popularity_stats(index, type):
     else:
         output = df[index].max()
     
-    return round(output, 2)
+    return f"{output:.2f}"
 
 def get_actor_movies_release_year_range(actor, upper, lower=0):
     if lower > upper:
