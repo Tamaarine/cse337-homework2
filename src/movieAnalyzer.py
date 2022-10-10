@@ -30,6 +30,8 @@ def get_rating_popularity_stats(index, type):
         '''
         Turn a string separated by , into its numerical value
         '''
+        if pd.isnull(x):
+            return x
         parsed = ""
         while x.find(",") != -1:
             parsed += x[: x.find(",")]
@@ -68,6 +70,8 @@ def get_actor_movies_release_year_range(actor, upper, lower=0):
     df = get_movies_data()
     
     def transform(x, actor):
+        if pd.isnull(x):
+            return False
         x = x.strip("[],")
         splitted = x.split(",")
         
@@ -97,6 +101,8 @@ def get_actor_median_rating(actor):
     df = get_movies_data()
     
     def transform(x, actor):
+        if pd.isnull(x):
+            return False
         x = x.strip("[],")
         splitted = x.split(",")
         
@@ -118,6 +124,8 @@ def get_directors_median_reviews():
     # Need to transform the Number of Reviews column into float
     # and it needs to be out of millions
     def transform(x):
+        if type(x) != str:
+            return 0
         if x[-1] == 'K':
             return float(x[:-1]) / 1000
         elif x[-1] == 'M':
