@@ -1,7 +1,7 @@
 import pytest
 import sys, os
 sys.path.insert(1, os.getcwd())
-from src.movieAnalyzer import pd, get_movies_interval, get_rating_popularity_stats, get_actor_movies_release_year_range, get_actor_median_rating, get_directors_median_reviews, get_movies_data
+from src.movieAnalyzer import pd, get_movies_interval, get_rating_popularity_stats, get_actor_movies_release_year_range, get_actor_median_rating, get_directors_median_reviews, get_movies_data, top200_movies_file
 
 class TestMovieAnalyzer:
     def setup_method(self):
@@ -176,3 +176,92 @@ class TestMovieAnalyzer:
         'Victor Fleming', 'Wes Anderson', 'William Wyler', 'Wolfgang Petersen'])
         
         assert get_directors_median_reviews().round(3).equals(exp)
+    
+    def test_get_rating_popularity_statsX1(self):
+        with open(top200_movies_file, 'r') as f:
+            prev = f.readlines()
+        with open(top200_movies_file, 'w') as f:
+            f.write("Title,Year of Release,Rating,Number of Reviews,Popularity Index,Movie Cast,Director,Description\n")
+            f.write("Hello,1994,9.3,1M,12,,Frank,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"")
+        
+        assert get_rating_popularity_stats("Rating", "count") == '1.00'
+                
+        with open(top200_movies_file, 'w') as f:
+            f.writelines(prev)
+    
+    def test_get_rating_popularity_statsX2(self):
+        with open(top200_movies_file, 'r') as f:
+            prev = f.readlines()
+        with open(top200_movies_file, 'w') as f:
+            f.write("Title,Year of Release,Rating,Number of Reviews,Popularity Index,Movie Cast,Director,Description\n")
+            f.write("Hello,1994,,1M,12,,Frank,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"")
+        
+        assert get_rating_popularity_stats("Rating", "count") == '0.00'
+                
+        with open(top200_movies_file, 'w') as f:
+            f.writelines(prev)
+    
+    def test_get_rating_popularity_statsX3(self):
+        with open(top200_movies_file, 'r') as f:
+            prev = f.readlines()
+        with open(top200_movies_file, 'w') as f:
+            f.write("Title,Year of Release,Rating,Number of Reviews,Popularity Index,Movie Cast,Director,Description\n")
+            f.write("Hello,1994,9.3,1M,,,Frank,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"")
+        
+        assert get_rating_popularity_stats("Popularity Index", "count") == '0.00'
+                
+        with open(top200_movies_file, 'w') as f:
+            f.writelines(prev)
+    
+    def test_get_actor_movies_release_year_rangeX1(self):
+        with open(top200_movies_file, 'r') as f:
+            prev = f.readlines()
+        with open(top200_movies_file, 'w') as f:
+            f.write("Title,Year of Release,Rating,Number of Reviews,Popularity Index,Movie Cast,Director,Description\n")
+            f.write("Hello,1994,9.3,1M,,,Frank,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"")
+        
+        assert get_actor_movies_release_year_range("a", 2000).equals(pd.Series(dtype="int"))
+                
+        with open(top200_movies_file, 'w') as f:
+            f.writelines(prev)
+    
+    def test_get_directors_median_reviewsX1(self):
+        with open(top200_movies_file, 'r') as f:
+            prev = f.readlines()
+        with open(top200_movies_file, 'w') as f:
+            f.write("Title,Year of Release,Rating,Number of Reviews,Popularity Index,Movie Cast,Director,Description\n")
+            f.write("Hello,1994,9.3,1M,,,Frank,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"\n")
+            f.write("Bye,1994,9.3,1,,,Heink,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"\n")
+        
+        exp = pd.Series([1, 0], index=['Frank', 'Heink'], dtype='float')
+        
+        assert get_directors_median_reviews().equals(exp)
+                
+        with open(top200_movies_file, 'w') as f:
+            f.writelines(prev)
+    
+    def test_get_directors_median_reviewsX2(self):
+        with open(top200_movies_file, 'r') as f:
+            prev = f.readlines()
+        with open(top200_movies_file, 'w') as f:
+            f.write("Title,Year of Release,Rating,Number of Reviews,Popularity Index,Movie Cast,Director,Description\n")
+            f.write("Hello,1994,9.3,1,,,Frank,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"\n")
+        
+        exp = pd.Series([0], index=['Frank'], dtype='float')
+        
+        assert get_directors_median_reviews().equals(exp)
+                
+        with open(top200_movies_file, 'w') as f:
+            f.writelines(prev)
+    
+    def test_get_actor_median_ratingX1(self):
+        with open(top200_movies_file, 'r') as f:
+            prev = f.readlines()
+        with open(top200_movies_file, 'w') as f:
+            f.write("Title,Year of Release,Rating,Number of Reviews,Popularity Index,Movie Cast,Director,Description\n")
+            f.write("Hello,1994,9.3,1,,,Frank,\"Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.\"\n")
+        
+        assert get_actor_median_rating('Frank') == None
+                
+        with open(top200_movies_file, 'w') as f:
+            f.writelines(prev)
